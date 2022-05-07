@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import pages.AbstractPage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class HelpdeskUITest {
@@ -52,8 +54,17 @@ public class HelpdeskUITest {
     }
 
     private Ticket buildNewTicket() {
-        Ticket ticket = new Ticket();
         // todo: заполнить поля тикета
+        Ticket ticket = new Ticket();
+        ticket.setTitle("Test");
+        ticket.setQueue(1);
+        ticket.setStatus(status.getCode());
+        ticket.setAssigned_to("admin");
+        ticket.setPriority(priority);
+        ticket.setDue_date(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+        ticket.setCreated(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm").format(Calendar.getInstance().getTime()));
+        ticket.setModified(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm").format(Calendar.getInstance().getTime()));
+        ticket.setSecret_key("key");
         return ticket;
     }
 
