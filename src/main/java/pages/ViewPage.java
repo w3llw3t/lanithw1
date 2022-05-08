@@ -3,11 +3,14 @@ package pages;
 import io.qameta.allure.Step;
 import models.Ticket;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 /** Страница просмотра карточки тикета (неавторизированный пользователь) */
 public class ViewPage extends HelpdeskBasePage {
@@ -51,9 +54,8 @@ public class ViewPage extends HelpdeskBasePage {
 
         // условие видимости при поиске по локатору
         ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(captionLocator);
-
         // поиск с ожиданием по условию
-        WebElement ticketTitle = new WebDriverWait(driver, 5).until(condition);
+        WebElement ticketTitle = new WebDriverWait(driver,  Duration.ofSeconds(5)).until(condition);
 
         return ticketTitle.getText();
     }
