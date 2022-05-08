@@ -153,7 +153,7 @@ public class Ticket {
         return id;
     }
 
-    public void setID(Integer ID) {
+    public void setId(Integer ID) {
         this.id = ID;
     }
 

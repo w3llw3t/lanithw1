@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import models.Ticket;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -50,6 +51,7 @@ public class HelpdeskUITest {
 
         // ...
         ticket = buildNewTicket();
+
         // ...
     }
 
@@ -58,9 +60,9 @@ public class HelpdeskUITest {
         Ticket ticket = new Ticket();
         ticket.setTitle("Test");
         ticket.setQueue(1);
-        ticket.setStatus(status.getCode());
+        ticket.setStatus(1);
         ticket.setAssigned_to("admin");
-        ticket.setPriority(priority);
+        ticket.setPriority(1);
         ticket.setDue_date(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
         ticket.setCreated(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm").format(Calendar.getInstance().getTime()));
         ticket.setModified(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm").format(Calendar.getInstance().getTime()));
