@@ -2,8 +2,11 @@ package web;
 
 import io.qameta.allure.Step;
 import models.Ticket;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -50,23 +53,39 @@ public class HelpdeskUITest {
         // todo: шаги тест-кейса
 
         // ...
+        driver.get("https://at-sandbox.workbench.lanit.ru/");
+        WebElement element = driver.findElement(By.xpath("//a[@href=\"/tickets/submit/\"]"));
+        element.click();
+        Select queue = new Select(driver.findElement(By.name("queue")));
+        queue.getOptions().forEach(option -> {
+            System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
+        });
+        queue.selectByVisibleText("Django Helpdesk");
+        WebElement inputSummary = driver.findElement(By.xpath("//input[@name=\"title\"]"));
+        inputSummary.sendKeys("123");
+        WebElement inputIssue = driver.findElement(By.xpath("//textarea[@id=\"id_body\"]"));
+        inputIssue.click();
+        inputIssue.sendKeys("12345");
+        Select priority = new Select(driver.findElement(By.name("priority")));
+        priority.getOptions().forEach(option -> {
+            System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
+                });
+        priority.selectByVisibleText("3. Normal");
+        WebElement date = driver.findElement(By.xpath("//input[@id=\"id_due_date\""));
+        date.click();
         ticket = buildNewTicket();
-
         // ...
     }
 
     private Ticket buildNewTicket() {
         // todo: заполнить поля тикета
         Ticket ticket = new Ticket();
-        ticket.setTitle("Test");
         ticket.setQueue(1);
-        ticket.setStatus(1);
-        ticket.setAssigned_to("admin");
-        ticket.setPriority(1);
+        ticket.setTitle("TestUi");
+        ticket.setDescription("12345");
+        ticket.setPriority(3);
         ticket.setDue_date(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
-        ticket.setCreated(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm").format(Calendar.getInstance().getTime()));
-        ticket.setModified(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm").format(Calendar.getInstance().getTime()));
-        ticket.setSecret_key("key");
+        ticket.setSubmitter_email("nicepal223@gmail.com");
         return ticket;
     }
 

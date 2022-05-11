@@ -3,14 +3,16 @@ package pages;
 import io.qameta.allure.Step;
 import models.Ticket;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /** Страница создания тикета */
 public class CreateTicketPage extends HelpdeskBasePage {
 
     // todo: добавить элементам локтаоры через @FindBy
 
+    @FindBy(name = ("queue"))
     private WebElement selectQueue;
-
+    @FindBy(xpath = ("//input[@name=\"title\"]"))
     private WebElement inputProblem;
 
     // todo: добавить остальные поля формы
