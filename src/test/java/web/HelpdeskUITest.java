@@ -7,11 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.AbstractPage;
+import pages.CreateTicketPage;
+
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -54,6 +55,8 @@ public class HelpdeskUITest {
 
         // ...
         driver.get("https://at-sandbox.workbench.lanit.ru/");
+        buildNewTicket();
+
         WebElement element = driver.findElement(By.xpath("//a[@href=\"/tickets/submit/\"]"));
         element.click();
         Select queue = new Select(driver.findElement(By.name("queue")));
@@ -61,8 +64,8 @@ public class HelpdeskUITest {
             System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
         });
         queue.selectByVisibleText("Django Helpdesk");
-        WebElement inputSummary = driver.findElement(By.xpath("//input[@name=\"title\"]"));
-        inputSummary.sendKeys("123");
+        WebElement title = driver.findElement(By.xpath("//input[@name=\"title\"]"));
+        title.sendKeys("123");
         WebElement inputIssue = driver.findElement(By.xpath("//textarea[@id=\"id_body\"]"));
         inputIssue.click();
         inputIssue.sendKeys("12345");
@@ -71,8 +74,6 @@ public class HelpdeskUITest {
             System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
                 });
         priority.selectByVisibleText("3. Normal");
-        WebElement date = driver.findElement(By.xpath("//input[@id=\"id_due_date\""));
-        date.click();
         ticket = buildNewTicket();
         // ...
     }

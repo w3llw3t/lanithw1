@@ -29,6 +29,10 @@ public class CreateTicketPage extends HelpdeskBasePage {
         return this;
     }
 
+    @Step
+    public void setSelectQueue() {
+
+    }
     @Step("Ввести имя проблемы: {text}")
     public void setInputProblem(String text) {
         inputProblem.sendKeys(text);

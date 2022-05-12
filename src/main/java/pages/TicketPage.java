@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import models.Ticket;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 /** Страница отдельного тикета (авторизированный пользователь) */
 public class TicketPage extends HelpdeskBasePage {
@@ -18,14 +19,16 @@ public class TicketPage extends HelpdeskBasePage {
     private WebElement dueDate = driver.findElement(By.xpath("//th[text()='Due Date']/following-sibling::td[1]"));
 
     // todo: проинициализировать элементы через driver.findElement
-    private WebElement title;
-    private WebElement queue;
-    private WebElement email;
-    private WebElement priority;
-    private WebElement description;
+
+    private WebElement title = driver.findElement(By.xpath("//input[@name=\"title\"]"));
+    private WebElement queue = driver.findElement(By.name("queue"));
+    private WebElement email = driver.findElement(By.name("submitter_email"));
+    private WebElement priority = driver.findElement(By.name("priority"));
+    private WebElement description = driver.findElement(By.xpath("//textarea[@id=\"id_body\"]"));
 
     @Step("Проверить значение полей на странице тикета")
     public void checkTicket(Ticket ticket) {
         // todo: добавить реализацию метода
+
     }
 }
