@@ -88,11 +88,11 @@ public class CreateTicketPage extends HelpdeskBasePage {
 
     }
 
-
     @Step("Ввести mail")
     public void setEmail(String mail) {
         email.sendKeys(mail);
     }
+
     @Step("Нажать на кнопку создания тикета")
     public void clickOnSubmitButton() {
         submitTicketButton.click();

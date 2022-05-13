@@ -3,11 +3,8 @@ package web;
 import elements.MainMenu;
 import io.qameta.allure.Step;
 import models.Ticket;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -57,13 +54,16 @@ public class HelpdeskUITest {
         MainMenu mainMenu = new MainMenu(driver);
         CreateTicketPage createTicketPage = new CreateTicketPage();
         LoginPage loginPage = new LoginPage();
+        String username = System.getProperty("user");
+        String password = System.getProperty("password");
 
         driver.get("https://at-sandbox.workbench.lanit.ru/"); //предусловие
         mainMenu.clickOnNewTicketButton(); // шаг 1
-        ticket = buildNewTicket(); // шаг 2
-        mainMenu.clickOnLogInButton(); //шаг 3
-        loginPage.login("admin", "adminat"); // шаг 4
+        ticket = buildNewTicket();// шаг 2
 
+        //mainMenu.clickOnLogInButton(); //шаг 3
+        //loginPage.login(username, password); // шаг 4
+        int y = 5;
         // ...
     }
 
