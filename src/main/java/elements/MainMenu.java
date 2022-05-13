@@ -30,7 +30,7 @@ public class MainMenu {
         PageFactory.initElements(driver, this);
     }
 
-    @Step("Нажать кнопку создания новго тикета")
+    @Step("Нажать кнопку создания нового тикета")
     public void clickOnNewTicketButton() {
         newTicketButton.click();
     }

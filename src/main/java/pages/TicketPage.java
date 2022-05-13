@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import models.Ticket;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 /** Страница отдельного тикета (авторизированный пользователь) */
 public class TicketPage extends HelpdeskBasePage {

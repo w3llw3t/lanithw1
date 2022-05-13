@@ -1,5 +1,6 @@
 package web;
 
+import elements.MainMenu;
 import io.qameta.allure.Step;
 import models.Ticket;
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.AbstractPage;
 import pages.CreateTicketPage;
+import pages.LoginPage;
 
 
 import java.io.IOException;
@@ -52,36 +54,23 @@ public class HelpdeskUITest {
     @Test
     public void createTicketTest() {
         // todo: шаги тест-кейса
+        MainMenu mainMenu = new MainMenu(driver);
+        CreateTicketPage createTicketPage = new CreateTicketPage();
+        LoginPage loginPage = new LoginPage();
 
-        // ...
-        driver.get("https://at-sandbox.workbench.lanit.ru/");
-        buildNewTicket();
+        driver.get("https://at-sandbox.workbench.lanit.ru/"); //предусловие
+        mainMenu.clickOnNewTicketButton(); // шаг 1
+        ticket = buildNewTicket(); // шаг 2
+        mainMenu.clickOnLogInButton(); //шаг 3
+        loginPage.login("admin", "adminat"); // шаг 4
 
-        WebElement element = driver.findElement(By.xpath("//a[@href=\"/tickets/submit/\"]"));
-        element.click();
-        Select queue = new Select(driver.findElement(By.name("queue")));
-        queue.getOptions().forEach(option -> {
-            System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
-        });
-        queue.selectByVisibleText("Django Helpdesk");
-        WebElement title = driver.findElement(By.xpath("//input[@name=\"title\"]"));
-        title.sendKeys("123");
-        WebElement inputIssue = driver.findElement(By.xpath("//textarea[@id=\"id_body\"]"));
-        inputIssue.click();
-        inputIssue.sendKeys("12345");
-        Select priority = new Select(driver.findElement(By.name("priority")));
-        priority.getOptions().forEach(option -> {
-            System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
-                });
-        priority.selectByVisibleText("3. Normal");
-        ticket = buildNewTicket();
         // ...
     }
 
     private Ticket buildNewTicket() {
         // todo: заполнить поля тикета
         Ticket ticket = new Ticket();
-        ticket.setQueue(1);
+        ticket.setQueue(2);
         ticket.setTitle("TestUi");
         ticket.setDescription("12345");
         ticket.setPriority(3);
