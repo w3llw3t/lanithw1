@@ -57,14 +57,15 @@ public class HelpdeskUITest {
         String username = System.getProperty("user");
         String password = System.getProperty("password");
 
-        driver.get("https://at-sandbox.workbench.lanit.ru/"); //предусловие
-        mainMenu.clickOnNewTicketButton(); // шаг 1
-        ticket = buildNewTicket();// шаг 2
+        driver.get("https://at-sandbox.workbench.lanit.ru/"); //предусловие // открыта главная страница сайта
+        mainMenu.clickOnNewTicketButton(); // шаг 1 // Нажать на пункт “New ticket” в главном меню
+        ticket = buildNewTicket(); // шаг 2 // Создать тикет
+        createTicketPage.createTicket(ticket);
 
-        //mainMenu.clickOnLogInButton(); //шаг 3
-        //loginPage.login(username, password); // шаг 4
-        int y = 5;
-        // ...
+        //mainMenu.clickOnLogInButton(); //шаг 3 // Нажать на кнопку “Log In”
+        //loginPage.login(username, password); // шаг 4 // Выполнить авторизацию
+        // шаг 5 // Найти созданный тикет
+        // шаг 6 // Нажать на ссылку созданного тикета в столбце Ticket
     }
 
     private Ticket buildNewTicket() {

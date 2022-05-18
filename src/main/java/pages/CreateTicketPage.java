@@ -15,11 +15,11 @@ public class CreateTicketPage extends HelpdeskBasePage {
 
     // todo: добавить элементам локтаоры через @FindBy
     // todo: добавить остальные поля формы
-    @FindBy(id = ("id_queue"))
+    @FindBy(xpath = "//select[@name=\"queue\"]")
     private WebElement selectQueue;
-    @FindBy(xpath = ("//input[@name=\"title\"]"))
+    @FindBy(xpath = "//input[@name=\"title\"]")
     private WebElement inputProblem;
-    @FindBy(xpath = ("//textarea[@name=\"body\"]"))
+    @FindBy(xpath = "//textarea[@name=\"body\"]")
     private WebElement inputDescription;
     @FindBy(id = "id_priority")
     private WebElement selectPriority;
@@ -27,7 +27,7 @@ public class CreateTicketPage extends HelpdeskBasePage {
     private WebElement dueDate;
     @FindBy(id = "id_submitter_email")
     private WebElement email;
-    @FindBy(xpath = ("//button[@type=\"submit\"]"))
+    @FindBy(xpath = "//button[@type=\"submit\"]")
     private WebElement submitTicketButton;
     private String[] date_dd_MM_yyyy;
 
@@ -36,15 +36,15 @@ public class CreateTicketPage extends HelpdeskBasePage {
     @Step("Создать тикет")
     public void createTicket(Ticket ticket) {
         selectQueue.click();
-        setSelectQueue(ticket.getQueue());
+        setSelectQueue();
         inputProblem.click();
         setInputProblem(ticket.getTitle());
         inputDescription.click();
         setInputDescription(ticket.getDescription());
         selectPriority.click();
-        setSelectPriority(ticket.getPriority());
+        setSelectPriority();
         dueDate.click();
-        setDueDate(LocalDateTime.parse(ticket.getDue_date()));
+        setDueDate();
         email.click();
         setEmail(ticket.getSubmitter_EMail());
         // todo: заполнить остальные поля формы
@@ -52,7 +52,7 @@ public class CreateTicketPage extends HelpdeskBasePage {
     }
 
     @Step
-    public void setSelectQueue(Integer selectQueue1) {
+    public void setSelectQueue() {
         Select queue = new Select(selectQueue);
         queue.getOptions().forEach(option -> {
             System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
@@ -70,7 +70,7 @@ public class CreateTicketPage extends HelpdeskBasePage {
     }
 
     @Step("Выбрать приоритет")
-    public void setSelectPriority(Integer selectPriority1) {
+    public void setSelectPriority() {
         Select priority = new Select(selectPriority);
         priority.getOptions().forEach(option -> {
             System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
@@ -79,7 +79,7 @@ public class CreateTicketPage extends HelpdeskBasePage {
     }
 
     @Step("Выбрать дату")
-    public void setDueDate(LocalDateTime due_date) {
+    public void setDueDate() {
         List<WebElement> list_AllMonthToBook = driver.findElements(By.xpath("//div[@id='datetimepicker_dateview']//table//tbody//td[not(contains(@class,'k-other-month'))]"));
         list_AllMonthToBook.get(Integer.parseInt(date_dd_MM_yyyy[1])-1).click();
         
