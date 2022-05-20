@@ -54,18 +54,18 @@ public class HelpdeskUITest {
         MainMenu mainMenu = new MainMenu(driver);
         CreateTicketPage createTicketPage = new CreateTicketPage();
         LoginPage loginPage = new LoginPage();
-        String username = System.getProperty("user");
+        String url = System.getProperty("site.url");
+        String username = System.getProperty("username");
         String password = System.getProperty("password");
 
-        driver.get("https://at-sandbox.workbench.lanit.ru/"); //предусловие // открыта главная страница сайта
+        driver.get(url); //предусловие // открыта главная страница сайта
         mainMenu.clickOnNewTicketButton(); // шаг 1 // Нажать на пункт “New ticket” в главном меню
         ticket = buildNewTicket(); // шаг 2 // Создать тикет
         createTicketPage.createTicket(ticket);
 
-        //mainMenu.clickOnLogInButton(); //шаг 3 // Нажать на кнопку “Log In”
-        //loginPage.login(username, password); // шаг 4 // Выполнить авторизацию
-        // шаг 5 // Найти созданный тикет
-        // шаг 6 // Нажать на ссылку созданного тикета в столбце Ticket
+        mainMenu.clickOnLogInButton(); //шаг 3 // Нажать на кнопку “Log In”
+        loginPage.login(username, password); // шаг 4 // Выполнить авторизацию
+        mainMenu.searchTicket(ticket);// шаг 5 // Найти созданный тикет
     }
 
     private Ticket buildNewTicket() {

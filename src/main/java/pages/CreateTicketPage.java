@@ -16,7 +16,7 @@ public class CreateTicketPage extends HelpdeskBasePage {
     // todo: добавить элементам локтаоры через @FindBy
     // todo: добавить остальные поля формы
     @FindBy(xpath = "//select[@name=\"queue\"]")
-    private WebElement selectQueue;
+    private WebElement queue;
     @FindBy(xpath = "//input[@name=\"title\"]")
     private WebElement inputProblem;
     @FindBy(xpath = "//textarea[@name=\"body\"]")
@@ -29,23 +29,16 @@ public class CreateTicketPage extends HelpdeskBasePage {
     private WebElement email;
     @FindBy(xpath = "//button[@type=\"submit\"]")
     private WebElement submitTicketButton;
-    private String[] date_dd_MM_yyyy;
 
     // todo: проинициализировать элементы
 
     @Step("Создать тикет")
     public void createTicket(Ticket ticket) {
-        selectQueue.click();
         setSelectQueue();
-        inputProblem.click();
         setInputProblem(ticket.getTitle());
-        inputDescription.click();
         setInputDescription(ticket.getDescription());
-        selectPriority.click();
         setSelectPriority();
-        dueDate.click();
-        setDueDate();
-        email.click();
+        setDueDate(ticket.getDue_date());
         setEmail(ticket.getSubmitter_EMail());
         // todo: заполнить остальные поля формы
         clickOnSubmitButton();
@@ -53,7 +46,7 @@ public class CreateTicketPage extends HelpdeskBasePage {
 
     @Step
     public void setSelectQueue() {
-        Select queue = new Select(selectQueue);
+        Select queue = new Select(driver.findElement(By.xpath("//select[@name=\"queue\"]")));
         queue.getOptions().forEach(option -> {
             System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
         });
@@ -62,16 +55,18 @@ public class CreateTicketPage extends HelpdeskBasePage {
 
     @Step("Ввести имя проблемы: {text}")
     public void setInputProblem(String text) {
-        inputProblem.sendKeys(text);
+        WebElement problem = driver.findElement(By.xpath("//input[@name=\"title\"]"));
+        problem.sendKeys(text);
     }
     @Step("Ввести описание проблемы: {textD}")
     public void setInputDescription(String textD) {
-        inputDescription.sendKeys(textD);
+        WebElement description = driver.findElement(By.xpath("//textarea[@name=\"body\"]"));
+        description.sendKeys(textD);
     }
 
     @Step("Выбрать приоритет")
     public void setSelectPriority() {
-        Select priority = new Select(selectPriority);
+        Select priority = new Select(driver.findElement(By.id("id_priority")));
         priority.getOptions().forEach(option -> {
             System.out.println("Value = " + option.getAttribute("value") + ";Text = " + option.getText());
         });
@@ -79,22 +74,21 @@ public class CreateTicketPage extends HelpdeskBasePage {
     }
 
     @Step("Выбрать дату")
-    public void setDueDate() {
-        List<WebElement> list_AllMonthToBook = driver.findElements(By.xpath("//div[@id='datetimepicker_dateview']//table//tbody//td[not(contains(@class,'k-other-month'))]"));
-        list_AllMonthToBook.get(Integer.parseInt(date_dd_MM_yyyy[1])-1).click();
-        
-        List<WebElement> list_AllDateToBook = driver.findElements(By.xpath("//div[@id='datetimepicker_dateview']//table//tbody//td[not(contains(@class,'k-other-month'))]"));
-        list_AllDateToBook.get(Integer.parseInt(date_dd_MM_yyyy[0])-1).click();
+    public void setDueDate(String day) {
+        WebElement date = driver.findElement(By.id("id_due_date"));
+        date.sendKeys(day);
 
     }
 
     @Step("Ввести mail")
     public void setEmail(String mail) {
+        WebElement email = driver.findElement(By.xpath("//button[@type=\"submit\"]"));
         email.sendKeys(mail);
     }
 
     @Step("Нажать на кнопку создания тикета")
     public void clickOnSubmitButton() {
-        submitTicketButton.click();
+        WebElement button = driver.findElement(By.xpath("//button[@type=\"submit\"]"));
+        button.click();
     }
 }
